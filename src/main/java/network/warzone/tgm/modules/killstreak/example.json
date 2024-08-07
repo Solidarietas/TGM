@@ -1,0 +1,14 @@
+{
+  "killstreaks": [
+    {
+      "count": 1,
+      "message": "%killercolor%%killer% &",
+      "commands": [
+        "",
+        "",
+        ""
+      ],
+      "repeat": false
+    }
+  ]
+}

@@ -18,6 +18,14 @@ repositories {
         name = "sonatype"
         url = uri("https://oss.sonatype.org/content/groups/public/")
     }
+    maven {
+        name = "jitpack.io"
+        url = uri("https://jitpack.io")
+    }
+    maven {
+        name = "enginehub"
+        url = uri("https://maven.enginehub.org/repo/")
+    }
     // Store your github username and a personal access token with permission to download packages
     maven {
         name = "GitHubPackages"
@@ -30,6 +38,10 @@ repositories {
 }
 
 dependencies {
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.0")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+//    compileOnly("com.github.ProtocolSupport:ProtocolSupport:master-1f834da42d-1")
+
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
 

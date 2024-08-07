@@ -9,10 +9,10 @@ public class BossBarUtil {
 
     public static void displayForOldVersions(BossBar bar) {
         if (!Plugins.isProtocolSupportPresent()) return;
-        if (bar.isVisible()) {
-            bar.getPlayers().stream().filter(Plugins.ProtocolSupport::isUsingOldVersion)
-                    .forEach(player -> player.sendActionBar(bar.getTitle()));
-        }
+//        if (bar.isVisible()) {
+//            bar.getPlayers().stream().filter(Plugins.ProtocolSupport::isUsingOldVersion)
+//                    .forEach(player -> player.sendActionBar(bar.getTitle()));
+//        }
     }
 
 }

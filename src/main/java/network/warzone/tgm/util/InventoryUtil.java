@@ -1,5 +1,6 @@
 package network.warzone.tgm.util;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import network.warzone.tgm.TGM;
@@ -11,7 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -124,7 +125,7 @@ public class InventoryUtil {
                             Strings.formatTime(potionEffect.getDuration() / 20)
                     )));
                 }
-                nmsItem.getTag().getCompound("display").put("Lore", nmsLore);
+                nmsItem.get(DataComponents.CUSTOM_DATA).getCompound("display").put("Lore", nmsLore);
             }
             return CraftItemStack.asBukkitCopy(nmsItem);
         }

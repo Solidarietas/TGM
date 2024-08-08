@@ -192,14 +192,18 @@ public class NickManager implements Listener {
             inventory.add(new Pair<>(EquipmentSlot.OFFHAND, CraftItemStack.asNMSCopy(toExclude.getEquipment().getItemInOffHand())));
         }
 
-        ClientboundPlayerInfoPacket playerInfoRemovePacket = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, entityPlayer);
-        ClientboundPlayerInfoPacket playerInfoAddPacket = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, entityPlayer);
+        List<UUID> temp = new ArrayList<>();
+        temp.add(entityPlayer.getUUID());
+        ClientboundPlayerInfoRemovePacket playerInfoRemovePacket = new ClientboundPlayerInfoRemovePacket(temp);
+//        ClientboundPlayerInfoPacket playerInfoRemovePacket = new ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, entityPlayer);
+        ClientboundPlayerInfoUpdatePacket playerInfoAddPacket = new ClientboundPlayerInfoUpdatePacket(
+            ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, entityPlayer);
         ClientboundRemoveEntitiesPacket entityDestroyPacket = new ClientboundRemoveEntitiesPacket(toExclude.getEntityId());
-        ClientboundAddPlayerPacket namedEntitySpawnPacket = new ClientboundAddPlayerPacket(entityPlayer);
+        // ClientboundAddEntityPacket namedEntitySpawnPacket = new ClientboundAddEntityPacket(entityPlayer); // TODO fix this shit
         ClientboundSetEquipmentPacket entityEquipmentPacket = new ClientboundSetEquipmentPacket(toExclude.getEntityId(), inventory);
 
         Location l = toExclude.getLocation();
-        ClientboundPlayerPositionPacket positionPacket = new ClientboundPlayerPositionPacket(l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch(), new HashSet<>(), -1, false);
+        ClientboundPlayerPositionPacket positionPacket = new ClientboundPlayerPositionPacket(l.getX(), l.getY(), l.getZ(), l.getYaw(), l.getPitch(), new HashSet<>(), -1);
         ClientboundRotateHeadPacket entityHeadRotationPacket = new ClientboundRotateHeadPacket(entityPlayer, (byte) ((l.getYaw() * 256.0F) / 360.0F));
 
         EntityDataAccessor<Byte> dataWatcherObject;
@@ -213,7 +217,8 @@ public class NickManager implements Listener {
         }
 
         entityPlayer.getEntityData().set(dataWatcherObject, (byte) (0x40 | 0x20 | 0x10 | 0x08 | 0x04 | 0x02 | 0x01));
-        ClientboundSetEntityDataPacket entityMetadataPacket = new ClientboundSetEntityDataPacket(toExclude.getEntityId(), entityPlayer.getEntityData(), true);
+        // Todo FIX
+//        ClientboundSetEntityDataPacket entityMetadataPacket = new ClientboundSetEntityDataPacket(toExclude.getEntityId(), entityPlayer.getEntityData(), true);
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             ServerPlayer entityOther = getEntityPlayer(p);
@@ -222,7 +227,8 @@ public class NickManager implements Listener {
                 entityOther.connection.connection.send(playerInfoRemovePacket);
                 entityOther.connection.connection.send(playerInfoAddPacket);
 
-                toExclude.spigot().respawn();
+                // TODO FIX
+//                toExclude.spigot().respawn();
 
                 entityOther.connection.connection.send(positionPacket);
 
@@ -237,12 +243,12 @@ public class NickManager implements Listener {
 
                 // Add the player back.
                 entityOther.connection.connection.send(playerInfoAddPacket);
-                entityOther.connection.connection.send(namedEntitySpawnPacket);
+//  TODO fix              entityOther.connection.connection.send(namedEntitySpawnPacket);
 
                 // Send the player's inventory.
                 entityOther.connection.connection.send(entityEquipmentPacket);
                 // Send the data metadata, this displays the second layer of the skin.
-                entityOther.connection.connection.send(entityMetadataPacket);
+//  TODO fix              entityOther.connection.connection.send(entityMetadataPacket);
                 entityOther.connection.connection.send(entityHeadRotationPacket);
             } else {
                 entityPlayer.connection.connection.send(playerInfoRemovePacket);

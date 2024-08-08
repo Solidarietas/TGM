@@ -1,6 +1,6 @@
 package network.warzone.tgm.parser.item.meta;
 
-import com.destroystokyo.paper.Namespaced;
+//import com.destroystokyo.paper.Namespaced;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -16,15 +16,16 @@ public class ItemCanPlaceOnParser implements ItemMetaParser {
 
     @Override
     public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (object.has("canPlaceOn")) {
-            List<Namespaced> keys = new ArrayList<>();
-            for (JsonElement element : object.getAsJsonArray("canPlaceOn")) {
-                if (!element.isJsonPrimitive()) {
-                    continue;
-                }
-                keys.add(KeyUtil.minecraft(element.getAsString()));
-            }
-            meta.setPlaceableKeys(keys);
-        }
+        // TODO fix adventure mode canDestroy/canBreak meta parsing in config
+//        if (object.has("canPlaceOn")) {
+//            List<Namespaced> keys = new ArrayList<>();
+//            for (JsonElement element : object.getAsJsonArray("canPlaceOn")) {
+//                if (!element.isJsonPrimitive()) {
+//                    continue;
+//                }
+//                keys.add(KeyUtil.minecraft(element.getAsString()));
+//            }
+//            meta.setPlaceableKeys(keys);
+//        }
     }
 }

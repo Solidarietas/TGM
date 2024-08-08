@@ -1,10 +1,8 @@
 package network.warzone.tgm.util;
 
-import net.minecraft.Util;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.game.ClientboundChatPacket;
-import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -17,11 +15,10 @@ public class ChatUtil {
     public static void sendChatComponents(Player player, Component[] components) {
         CraftPlayer obcPlayer = (CraftPlayer) player;
         for (Component component : components) {
-            obcPlayer.getHandle().connection.connection.send(new ClientboundChatPacket(
+            obcPlayer.getHandle().connection.connection.send(new ClientboundSystemChatPacket(
                 component,
-                ChatType.CHAT,
-                Util.NIL_UUID
-            ));
+                false)
+            );
         }
     }
 

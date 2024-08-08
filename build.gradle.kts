@@ -9,6 +9,7 @@ version = "2.0-SNAPSHOT"
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         name = "papermc-repo"
@@ -22,10 +23,7 @@ repositories {
         name = "jitpack.io"
         url = uri("https://jitpack.io")
     }
-    maven {
-        name = "enginehub"
-        url = uri("https://maven.enginehub.org/repo/")
-    }
+    maven("https://maven.enginehub.org/repo/")
     // Store your github username and a personal access token with permission to download packages
     maven {
         name = "GitHubPackages"
@@ -38,7 +36,12 @@ repositories {
 }
 
 dependencies {
+    // Add the WorldEdit API dependency
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.2.0")
+
+    // If you're developing a Bukkit plugin, also add:
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.0")
+
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 //    compileOnly("com.github.ProtocolSupport:ProtocolSupport:master-1f834da42d-1")
 
@@ -54,6 +57,7 @@ dependencies {
         exclude(group = "commons-codec")
     }
     implementation("com.google.code.gson:gson:2.8.0")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
 
     paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
 }

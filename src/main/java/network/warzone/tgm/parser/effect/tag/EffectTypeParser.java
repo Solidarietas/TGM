@@ -1,7 +1,11 @@
 package network.warzone.tgm.parser.effect.tag;
 
 import com.google.gson.JsonObject;
+import java.util.Locale;
+import java.util.Objects;
 import network.warzone.tgm.util.Strings;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -9,8 +13,10 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class EffectTypeParser implements EffectTagParser<PotionEffectType> {
 
+    // TODO, map old type names like DAMAGE_RESISTANCE to RESISTANCE
     @Override
     public PotionEffectType parse(JsonObject object) {
-        return PotionEffectType.getByName(Strings.getTechnicalName(object.get("type").getAsString()));
+        String name = Strings.getTechnicalName(object.get("type").getAsString()).toLowerCase();
+        return Registry.EFFECT.get(Objects.requireNonNull(NamespacedKey.fromString(name)));
     }
 }

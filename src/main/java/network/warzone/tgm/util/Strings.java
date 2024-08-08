@@ -26,7 +26,18 @@ public class Strings {
     }
 
     public static String getTechnicalName(String s) {
-        return s.toUpperCase().replace(" ", "_");
+        s = s.toUpperCase().replace(" ", "_");
+        return switch (s) {
+            case "CONFUSION" -> "NAUSEA";
+            case "DAMAGE_RESISTANCE" -> "RESISTANCE";
+            case "FAST_DIGGING" -> "HASTE";
+            case "HARM" -> "INSTANT_DAMAGE";
+            case "HEAL" -> "INSTANT_HEALTH";
+            case "SLOW" -> "SLOWNESS";
+            case "SLOW_DIGGING" -> "MINING_FATIGUE";
+            case "JUMP" -> "JUMP_BOOST";
+            default -> s;
+        };
     }
 
     public static String getAgo(long timestamp) {

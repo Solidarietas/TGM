@@ -1,7 +1,9 @@
 plugins {
     java
     id("io.papermc.paperweight.userdev") version "1.7.2"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.github.goooler.shadow") version "8.1.8"
+    // id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("xyz.jpenilla.run-paper") version "2.3.0"
 }
 
 group = "network.warzone"
@@ -52,6 +54,9 @@ dependencies {
     implementation("com.konghq:unirest-java:3.11.10") {
         exclude(group = "commons-codec")
     }
+    // TODO remove later
+    implementation("org.apache.httpcomponents:httpcore-nio:4.4.16")
+
     implementation("com.google.code.gson:gson:2.8.0")
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
 
@@ -80,11 +85,28 @@ tasks.withType<JavaCompile>().configureEach {
     }
 }
 
+tasks.jar {
+    manifest {
+        attributes["paperweight-mappings-namespace"] = "mojang"
+    }
+}
+
 tasks.shadowJar {
     // Include only specific dependencies
     dependencies {
-//        include(dependency("com.google.guava:guava:30.1-jre"))
-//        include(dependency("org.apache.httpcomponents:httpclient:4.5.13"))
+        include(dependency("cl.bgm:command-framework-bukkit:1.0.4-SNAPSHOT"))
+        include(dependency("org.mongodb:mongo-java-driver:3.4.2"))
+        include(dependency("com.konghq:unirest-java:3.11.10"))
+        // no easy way to exclude parts of deps in gradle shadowJar finely like in maven, temporarily inclding
+        // org/apache/http/nio/protocol/HTTPAsyncResponse even though never used so unirest will load
+        include(dependency("org.apache.httpcomponents:httpcore-nio:4.4.16"))
+        // exclude("commons-codec/**")
+
+        include(dependency("com.google.code.gson:gson:2.8.0"))
+        include(dependency("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r"))
+    }
+    manifest {
+        attributes["paperweight-mappings-namespace"] = "mojang"
     }
     minimize()
 }
@@ -96,4 +118,8 @@ tasks.named<ProcessResources>("processResources") {
     filesMatching("paper-plugin.yml") {
         expand(props)
     }
+}
+
+tasks.runServer {
+    minecraftVersion("1.21")
 }

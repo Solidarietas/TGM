@@ -24,17 +24,18 @@ public class ItemBookParser implements ItemMetaParser {
     private static Field fieldPages;
 
     static {
-        try {
+        // What is this reflection here for its never used?
+//        try {
             //classIChatBaseComponent = Class.forName("net.minecraft.network.chat.IChatBaseComponent");
-            classChatSerializer = Class.forName("net.minecraft.network.chat.IChatBaseComponent$ChatSerializer");
-            methodA = classChatSerializer.getDeclaredMethod("a", String.class);
+//            classChatSerializer = Class.forName("net.minecraft.network.chat.IChatBaseComponent$ChatSerializer");
+//            methodA = classChatSerializer.getDeclaredMethod("a", String.class);
+//
+//            classCraftMetaBook = Class.forName("org.bukkit.craftbukkit.v1_18_R1.inventory.CraftMetaBook");
+//            fieldPages = classCraftMetaBook.getDeclaredField("pages");
 
-            classCraftMetaBook = Class.forName("org.bukkit.craftbukkit.v1_18_R1.inventory.CraftMetaBook");
-            fieldPages = classCraftMetaBook.getDeclaredField("pages");
-
-        } catch (ClassNotFoundException | NoSuchFieldException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+//        } catch (ClassNotFoundException | NoSuchFieldException | NoSuchMethodException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @SuppressWarnings("unchecked")

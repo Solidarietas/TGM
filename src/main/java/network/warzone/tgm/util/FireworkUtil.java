@@ -22,7 +22,7 @@ public class FireworkUtil {
         meta.setPower(power > 0 ? (power - 1) : power);
         meta.addEffect(effect);
 
-        Firework firework = (Firework) location.getWorld().spawnEntity(location.add(0.5, 0.0, 0.5), EntityType.FIREWORK);
+        Firework firework = (Firework) location.getWorld().spawnEntity(location.add(0.5, 0.0, 0.5), EntityType.FIREWORK_ROCKET);
         firework.setFireworkMeta(meta);
         if (power == 0) Bukkit.getScheduler().runTaskLater(TGM.get(), firework::detonate, 1L);
 

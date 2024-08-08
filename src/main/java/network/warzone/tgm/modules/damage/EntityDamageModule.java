@@ -30,7 +30,7 @@ public class EntityDamageModule extends MatchModule implements Listener {
     public void onProjectileHit(ProjectileHitEvent event) {
         ProjectileSource shooter = event.getEntity().getShooter();
         if (!(shooter instanceof Player)) return;
-        if (event.getEntityType() != EntityType.FISHING_HOOK &&
+        if (event.getEntityType() != EntityType.FISHING_BOBBER &&
             event.getEntityType() != EntityType.SNOWBALL &&
             event.getEntityType() != EntityType.EGG) return;
         if (event.getHitEntity() instanceof Damageable) {

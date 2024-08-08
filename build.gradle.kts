@@ -1,6 +1,7 @@
 plugins {
     java
     id("io.papermc.paperweight.userdev") version "1.7.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "network.warzone"
@@ -36,18 +37,13 @@ repositories {
 }
 
 dependencies {
-    // Add the WorldEdit API dependency
     compileOnly("com.sk89q.worldedit:worldedit-core:7.2.0")
-
-    // If you're developing a Bukkit plugin, also add:
     compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.0")
-
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 //    compileOnly("com.github.ProtocolSupport:ProtocolSupport:master-1f834da42d-1")
 
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
-
     testCompileOnly("org.projectlombok:lombok:1.18.34")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.34")
 
@@ -59,6 +55,7 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.0")
     implementation("org.eclipse.jgit:org.eclipse.jgit:6.10.0.202406032230-r")
 
+    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     paperweight.paperDevBundle("1.21-R0.1-SNAPSHOT")
 }
 
@@ -81,6 +78,15 @@ tasks.withType<JavaCompile>().configureEach {
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
         options.release.set(targetJavaVersion)
     }
+}
+
+tasks.shadowJar {
+    // Include only specific dependencies
+    dependencies {
+//        include(dependency("com.google.guava:guava:30.1-jre"))
+//        include(dependency("org.apache.httpcomponents:httpclient:4.5.13"))
+    }
+    minimize()
 }
 
 tasks.named<ProcessResources>("processResources") {

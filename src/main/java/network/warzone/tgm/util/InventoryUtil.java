@@ -1,6 +1,7 @@
 package network.warzone.tgm.util;
 
-import net.minecraft.core.component.DataComponents;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import network.warzone.tgm.TGM;
@@ -114,20 +115,37 @@ public class InventoryUtil {
             meta.setColor(Color.BLUE);
             meta.addItemFlags(ItemFlag.values());
             itemStack.setItemMeta(meta);
-            net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);
-            if (nmsItem.getTag() != null) {
-                ListTag nmsLore = new ListTag();
+            if (itemStack.hasItemMeta()) {
+//                  ListTag nmsLore = new ListTag();
+                List<String> nmsLore = new ArrayList<>();
                 for (PotionEffect potionEffect : potionEffects) {
-                    nmsLore.add(StringTag.valueOf(String.format("[\"%s\",{\"translate\": \"effect.minecraft.%s\"},\" \",{\"translate\":\"%s\"},\" (%s)\"]",
-                            ChatColor.GRAY.toString(),
-                            Effects.toMinecraftID(potionEffect.getType()),
-                            potionEffect.getAmplifier() > 10 ? "" + potionEffect.getAmplifier() : "enchantment.level." + (potionEffect.getAmplifier() + 1),
-                            Strings.formatTime(potionEffect.getDuration() / 20)
-                    )));
+                    nmsLore.add(String.format(
+                        "[\"%s\",{\"translate\": \"effect.minecraft.%s\"},\" \",{\"translate\":\"%s\"},\" (%s)\"]",
+                        ChatColor.GRAY.toString(),
+                        Effects.toMinecraftID(potionEffect.getType()),
+                        potionEffect.getAmplifier() > 10 ? "" + potionEffect.getAmplifier() :
+                            "enchantment.level." + (potionEffect.getAmplifier() + 1),
+                        Strings.formatTime(potionEffect.getDuration() / 20)
+                    ));
                 }
-                nmsItem.get(DataComponents.CUSTOM_DATA).getCompound("display").put("Lore", nmsLore);
+                itemStack.setLore(nmsLore);
             }
-            return CraftItemStack.asBukkitCopy(nmsItem);
+            return itemStack;
+
+//            net.minecraft.world.item.ItemStack nmsItem = CraftItemStack.asNMSCopy(itemStack);
+//            if (nmsItem.getTag() != null) {
+//                ListTag nmsLore = new ListTag();
+//                for (PotionEffect potionEffect : potionEffects) {
+//                    nmsLore.add(StringTag.valueOf(String.format("[\"%s\",{\"translate\": \"effect.minecraft.%s\"},\" \",{\"translate\":\"%s\"},\" (%s)\"]",
+//                            ChatColor.GRAY.toString(),
+//                            Effects.toMinecraftID(potionEffect.getType()),
+//                            potionEffect.getAmplifier() > 10 ? "" + potionEffect.getAmplifier() : "enchantment.level." + (potionEffect.getAmplifier() + 1),
+//                            Strings.formatTime(potionEffect.getDuration() / 20)
+//                    )));
+//                }
+//                nmsItem.getTag().getCompound("display").put("Lore", nmsLore);
+//            }
+//            return CraftItemStack.asBukkitCopy(nmsItem);
         }
     }
 

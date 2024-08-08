@@ -62,7 +62,7 @@ public class LegacyDamageModule extends MatchModule implements Listener {
             if (player.hasPotionEffect(PotionEffectType.WEAKNESS)) weaponDamage -= 4;
 
             // Strength
-            PotionEffect strengthEffect = player.getPotionEffect(PotionEffectType.INCREASE_DAMAGE);
+            PotionEffect strengthEffect = player.getPotionEffect(PotionEffectType.STRENGTH);
             // -1 -> 0 in next part so strength modifier is 0 if no strength.
             int amplifier = strengthEffect != null ? strengthEffect.getAmplifier() : -1;
 
@@ -93,7 +93,7 @@ public class LegacyDamageModule extends MatchModule implements Listener {
             }
 
             // Sharpness - 1.8 sharpness
-            int sharpnessLevel = weaponItem.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
+            int sharpnessLevel = weaponItem.getEnchantmentLevel(Enchantment.SHARPNESS);
             double sharpnessDamage = DamageUtils.getOldSharpnessDamage(sharpnessLevel);
             weaponDamage += sharpnessDamage;
 

@@ -1,6 +1,6 @@
 name: TGM2
-version: ${project.version}-${git.commit.id.abbrev}
+version: ${version}
 description: Team Game Manager
-main: network.warzone.warzone.TGM
+main: network.warzone.tgm.TGM
 api-version: '1.21'
 softdepend: [ProtocolSupport, WorldEdit, Vault]

@@ -20,7 +20,7 @@ public class BuilderAbility extends Ability {
 
         FireworkUtil.spawnFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.STAR).withColor(Color.YELLOW).build(), 0);
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 5, 1));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, 20 * 5, 1));
         super.putOnCooldown(player);
     }
 }

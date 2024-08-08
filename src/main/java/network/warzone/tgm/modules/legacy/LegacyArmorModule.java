@@ -123,19 +123,19 @@ public class LegacyArmorModule extends MatchModule implements Listener {
     }
 
     private enum EnchantmentType {
-        PROTECTION(() -> EnumSet.allOf(EntityDamageEvent.DamageCause.class), 0.75, Enchantment.PROTECTION_ENVIRONMENTAL),
+        PROTECTION(() -> EnumSet.allOf(EntityDamageEvent.DamageCause.class), 0.75, Enchantment.PROTECTION),
         FIRE_PROTECTION(() -> EnumSet.of(
                 EntityDamageEvent.DamageCause.FIRE,
                 EntityDamageEvent.DamageCause.FIRE_TICK,
                 EntityDamageEvent.DamageCause.LAVA,
                 EntityDamageEvent.DamageCause.HOT_FLOOR
-        ), 1.25, Enchantment.PROTECTION_FIRE),
+        ), 1.25, Enchantment.FIRE_PROTECTION),
         BLAST_PROTECTION(() -> EnumSet.of(
                 EntityDamageEvent.DamageCause.ENTITY_EXPLOSION,
                 EntityDamageEvent.DamageCause.BLOCK_EXPLOSION
-        ), 1.5, Enchantment.PROTECTION_EXPLOSIONS),
-        PROJECTILE_PROTECTION(() -> EnumSet.of(EntityDamageEvent.DamageCause.PROJECTILE), 1.5, Enchantment.PROTECTION_PROJECTILE),
-        FALL_PROTECTION(() -> EnumSet.of(EntityDamageEvent.DamageCause.FALL), 2.5, Enchantment.PROTECTION_FALL);
+        ), 1.5, Enchantment.BLAST_PROTECTION),
+        PROJECTILE_PROTECTION(() -> EnumSet.of(EntityDamageEvent.DamageCause.PROJECTILE), 1.5, Enchantment.PROJECTILE_PROTECTION),
+        FALL_PROTECTION(() -> EnumSet.of(EntityDamageEvent.DamageCause.FALL), 2.5, Enchantment.FEATHER_FALLING);
 
         private Set<EntityDamageEvent.DamageCause> protection;
         private double typeModifier;

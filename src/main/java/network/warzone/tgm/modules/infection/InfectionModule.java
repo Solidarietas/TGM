@@ -262,7 +262,7 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
     @EventHandler
     public void onRespawn(TGMPlayerRespawnEvent event) {
         if (teamManager.getTeam(event.getPlayer()).equals(this.infected)) {
-            event.getPlayer().addPotionEffects(Collections.singleton(new PotionEffect(PotionEffectType.JUMP, 10000, 1, true, false)));
+            event.getPlayer().addPotionEffects(Collections.singleton(new PotionEffect(PotionEffectType.JUMP_BOOST, 10000, 1, true, false)));
         }
         event.getPlayer().setGameMode(GameMode.ADVENTURE);
     }
@@ -335,15 +335,15 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
     private void infect(Player player) {
         player.getWorld().strikeLightningEffect(player.getLocation());
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lYou have been infected!"));
-        player.addPotionEffects(Collections.singleton(new PotionEffect(PotionEffectType.JUMP, 50000, 1, true, false)));
+        player.addPotionEffects(Collections.singleton(new PotionEffect(PotionEffectType.JUMP_BOOST, 50000, 1, true, false)));
         player.setGameMode(GameMode.ADVENTURE);
         addTag(player);
     }
 
     private void freeze(Player player, int ticks) {
         player.addPotionEffects(Arrays.asList(
-                new PotionEffect(PotionEffectType.SLOW, ticks, 255, true, false),
-                new PotionEffect(PotionEffectType.JUMP, ticks, 128, true, false),
+                new PotionEffect(PotionEffectType.SLOWNESS, ticks, 255, true, false),
+                new PotionEffect(PotionEffectType.JUMP_BOOST, ticks, 128, true, false),
                 new PotionEffect(PotionEffectType.BLINDNESS, ticks, 255, true, false)
         ));
 
@@ -351,11 +351,11 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
     }
 
     private void unfreeze(Player player) {
-        player.removePotionEffect(PotionEffectType.JUMP);
-        player.removePotionEffect(PotionEffectType.SLOW);
+        player.removePotionEffect(PotionEffectType.JUMP_BOOST);
+        player.removePotionEffect(PotionEffectType.SLOWNESS);
         player.removePotionEffect(PotionEffectType.BLINDNESS);
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 50000, 1, true, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, 50000, 1, true, false));
     }
 
 }

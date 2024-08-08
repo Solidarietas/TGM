@@ -39,8 +39,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.sk89q.worldedit:worldedit-core:7.2.0")
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.2.0")
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0")
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 //    compileOnly("com.github.ProtocolSupport:ProtocolSupport:master-1f834da42d-1")
 

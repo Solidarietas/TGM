@@ -1,4 +1,4 @@
-# TGM ![Minecraft Version](https://img.shields.io/badge/supports%20MC%20version-1.21-brightgreen.svg)[![Discord](https://img.shields.io/badge/chat-on%20discord-blue.svg)](https://discord.gg/pRUb8taykv)
+# TGM ![Minecraft Version](https://img.shields.io/badge/supports%20MC%20version-1.21-brightgreen.svg)[![Discord](https://img.shields.io/badge/chat-on%20discord-blue.svg)](https://discord.gg/DwyzBAfpNS)
 Team Game Manager. A Team Oriented Minecraft PVP plugin.
 
 ## Project Goals

@@ -18,9 +18,9 @@ import org.bukkit.potion.PotionType;
 public class ItemPotionParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (!ItemUtils.isPotion(itemStack.getType())) return;
-        if (!object.has("potion")) return;
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+        if (!ItemUtils.isPotion(itemStack.getType())) return meta;
+        if (!object.has("potion")) return meta;
         PotionMeta potionMeta = (PotionMeta) meta;
 
         /*
@@ -42,6 +42,7 @@ public class ItemPotionParser implements ItemMetaParser {
             if (object.getAsJsonObject("potion").has("upgrade"))
                 upgraded = object.getAsJsonObject("potion").get("upgrade").getAsBoolean();
             potionMeta.setBasePotionData(new PotionData(type, extended, upgraded));
+            return potionMeta;
         }
 
         /*
@@ -63,6 +64,8 @@ public class ItemPotionParser implements ItemMetaParser {
                 PotionEffect effect = EffectDeserializer.parse(element.getAsJsonObject());
                 potionMeta.addCustomEffect(effect, true);
             }
+            return potionMeta;
         }
+        return meta;
     }
 }

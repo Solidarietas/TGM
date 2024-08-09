@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ItemEnchantmentsParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
         if (object.has("enchantments")) {
             for (JsonElement element : object.getAsJsonArray("enchantments")) {
                 String[] split = element.getAsString().split(":");
@@ -25,5 +25,6 @@ public class ItemEnchantmentsParser implements ItemMetaParser {
                 }
             }
         }
+        return meta;
     }
 }

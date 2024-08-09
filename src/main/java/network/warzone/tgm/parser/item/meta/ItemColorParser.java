@@ -14,19 +14,21 @@ import org.bukkit.inventory.meta.PotionMeta;
 public class ItemColorParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (!object.has("color")) return;
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+        if (!object.has("color")) return meta;
         String[] rgb = object.get("color").getAsString().replace(" ", "").split(",");
         Color color = Color.fromRGB(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
         if (itemStack.getType().name().contains("LEATHER_")) {
             LeatherArmorMeta leatherArmorMeta = (LeatherArmorMeta) meta;
             leatherArmorMeta.setColor(color);
             itemStack.setItemMeta(leatherArmorMeta);
+            return leatherArmorMeta;
         } else if (ItemUtils.isPotion(itemStack.getType())) {
             PotionMeta potionMeta = (PotionMeta) meta;
             potionMeta.setColor(color);
             itemStack.setItemMeta(potionMeta);
+            return potionMeta;
         }
-        
+        return meta;
     }
 }

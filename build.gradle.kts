@@ -44,6 +44,11 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 //    compileOnly("com.github.ProtocolSupport:ProtocolSupport:master-1f834da42d-1")
 
+    implementation("com.saicone.rtag:rtag:1.5.5")
+    implementation("com.saicone.rtag:rtag-block:1.5.5")
+    implementation("com.saicone.rtag:rtag-entity:1.5.5")
+    implementation("com.saicone.rtag:rtag-item:1.5.5")
+
     compileOnly("org.projectlombok:lombok:1.18.34")
     annotationProcessor("org.projectlombok:lombok:1.18.34")
     testCompileOnly("org.projectlombok:lombok:1.18.34")

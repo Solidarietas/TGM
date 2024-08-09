@@ -22,7 +22,7 @@ public enum ItemMetaParserType {
     BOOK(ItemBookParser.class),
     COLOR(ItemColorParser.class),
     CAN_PLACE_ON(ItemCanPlaceOnParser.class),
-    CAN_DESTROY(ItemCanDestroyParser.class);
+    CAN_DESTROY(ItemCanDestroyOnParser.class);
 
     private Class<? extends ItemMetaParser> defaultParser;
 

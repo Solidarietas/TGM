@@ -12,20 +12,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 /**
  * Created by Jorge on 03/22/2020
  */
-public class ItemCanPlaceOnParser implements ItemMetaParser {
+public class ItemCanPlaceOnParser extends ItemCanPlaceDestroyOnParserParent {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        // TODO fix adventure mode canDestroy/canBreak meta parsing in config
-//        if (object.has("canPlaceOn")) {
-//            List<Namespaced> keys = new ArrayList<>();
-//            for (JsonElement element : object.getAsJsonArray("canPlaceOn")) {
-//                if (!element.isJsonPrimitive()) {
-//                    continue;
-//                }
-//                keys.add(KeyUtil.minecraft(element.getAsString()));
-//            }
-//            meta.setPlaceableKeys(keys);
-//        }
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+        return super.parseDestroyPlace(itemStack, meta, object, "canPlaceOn", "can_place_on");
     }
 }

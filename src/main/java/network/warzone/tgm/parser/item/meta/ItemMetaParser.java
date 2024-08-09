@@ -9,6 +9,6 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public interface ItemMetaParser {
 
-    void parse(ItemStack itemStack, ItemMeta meta, JsonObject object);
+    ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object);
 
 }

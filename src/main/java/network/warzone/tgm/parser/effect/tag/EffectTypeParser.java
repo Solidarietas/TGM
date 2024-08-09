@@ -13,7 +13,6 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class EffectTypeParser implements EffectTagParser<PotionEffectType> {
 
-    // TODO, map old type names like DAMAGE_RESISTANCE to RESISTANCE
     @Override
     public PotionEffectType parse(JsonObject object) {
         String name = Strings.getTechnicalName(object.get("type").getAsString()).toLowerCase();

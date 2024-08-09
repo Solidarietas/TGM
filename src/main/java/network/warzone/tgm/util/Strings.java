@@ -104,4 +104,29 @@ public class Strings {
     public static String capitalizeString(String str) {
         return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
+
+    // Allow setting item/entity/block 1.20.5+ Components using their strings
+    public static String setComponent(String existingComponents, String newComponent) {
+        // Handle empty or null components
+        if (existingComponents == null || existingComponents.isEmpty() || existingComponents.equals("[]")) {
+            return "[" + newComponent + "]";
+        }
+
+        // Extract the tag name from the newComponent
+        String tagName = newComponent.substring(0, newComponent.indexOf('='));
+
+        // Check if the tag already exists
+        int startIndex = existingComponents.indexOf(tagName);
+        if (startIndex != -1) {
+            // Find the end index of the existing tag component
+            int endIndex = existingComponents.indexOf('}', startIndex) + 1;
+
+            // Replace the existing component with the new one
+            return existingComponents.substring(0, startIndex) + newComponent + existingComponents.substring(endIndex);
+        } else {
+            // If the tag doesn't exist, add it as a new component
+            existingComponents = existingComponents.substring(0, existingComponents.length() - 1);
+            return existingComponents + ", " + newComponent + "]";
+        }
+    }
 }

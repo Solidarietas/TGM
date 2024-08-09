@@ -3,6 +3,7 @@ package network.warzone.tgm.parser.item.meta;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import network.warzone.tgm.util.ColorConverter;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class ItemLoreParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
         if (object.has("lore")) {
             List<String> lore = new ArrayList<>();
             for (JsonElement element : object.getAsJsonArray("lore")) {
@@ -23,5 +24,6 @@ public class ItemLoreParser implements ItemMetaParser {
             }
             meta.setLore(lore);
         }
+        return meta;
     }
 }

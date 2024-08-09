@@ -11,8 +11,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ItemDurabilityParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
         if (meta instanceof Damageable && object.has("durability"))
             ((Damageable) meta).setDamage(object.get("durability").getAsShort());
+        return meta;
     }
 }

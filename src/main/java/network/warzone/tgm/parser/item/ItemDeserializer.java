@@ -74,7 +74,7 @@ public class ItemDeserializer implements JsonDeserializer<ItemStack> {
             ItemStack itemStack = ItemFactory.createItem(material, amount);
             ItemMeta meta = itemStack.getItemMeta();
             for (ItemMetaParser itemMetaParser : metaParsers.values()) {
-                itemMetaParser.parse(itemStack, meta, jsonElement.getAsJsonObject());
+                meta = itemMetaParser.parse(itemStack, meta, jsonElement.getAsJsonObject());
             }
             itemStack.setItemMeta(meta);
             return itemStack;

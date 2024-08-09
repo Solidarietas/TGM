@@ -14,10 +14,11 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class ItemSkullOwnerParser implements ItemMetaParser {
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
         if (itemStack.getType().equals(Material.PLAYER_HEAD) && object.has("skullOwner")) {
             SkullMeta skullMeta = (SkullMeta) meta;
             skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(UUID.fromString(object.get("skullOwner").getAsString())));
         }
+        return meta;
     }
 }

@@ -15,9 +15,10 @@ public class ItemFlagParser implements ItemMetaParser {
     // https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/ItemFlag.html
 
     @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    public ItemMeta parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
         if (object.has("flags"))
             for (JsonElement element : object.getAsJsonArray("flags"))
                 meta.addItemFlags(ItemFlag.valueOf(Strings.getTechnicalName(element.getAsString())));
+        return meta;
     }
 }

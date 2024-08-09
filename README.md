@@ -1,4 +1,4 @@
-# TGM [![Build Status](https://jenkins.bennydoesstuff.me/buildStatus/icon?job=TGM)](https://jenkins.bennydoesstuff.me/job/TGM) ![Minecraft Version](https://img.shields.io/badge/supports%20MC%20version-1.17.1-brightgreen.svg) [![Discord](https://img.shields.io/badge/chat-on%20discord-blue.svg)](https://warz.one/discord)
+# TGM ![Minecraft Version](https://img.shields.io/badge/supports%20MC%20version-1.21-brightgreen.svg)
 Team Game Manager. A Team Oriented Minecraft PVP plugin.
 
 ## Project Goals
@@ -51,11 +51,11 @@ Here's a basic example of what map configuration files look like:
 2. Compile the latest version of TGM or download it from our [Jenkins](https://jenkins.bennydoesstuff.me/job/TGM/).
  
 3. Create a `Maps` folder in the root directory of your server and insert a supported TGM map. Make sure you also include a `rotation.json` file with the names of maps you would like to be present in the rotation.
-    - You can download our Maps folder as a reference on the Maps repository located [here](https://github.com/WarzoneMC/Maps).
+    - You can download our Maps folder as a reference on the Maps repository located [here](https://github.com/pvparcade/Maps).
     - If you would like to load multiple map repositories or simply change the location, you can change the setting in the `plugins/TGM/config.yml` file.
  
 4. Start the server. 
-   - Additionally, if you would like stats to be saved, you need to set up the API [here](https://github.com/WarzoneMC/api) and enable the API feature in the `plugins/TGM/config.yml` file.
+   - Additionally, if you would like stats to be saved, you need to set up the API and enable the API feature in the `plugins/TGM/config.yml` file.
 
 5. (Optional) Install WorldEdit for added telelport tool functionallity
 
@@ -90,4 +90,4 @@ Here's a basic example of what map configuration files look like:
 
 ## Documentation
 
-This plugin takes advantage of a ``map.json`` required by every map to configure the gamemode and to document the coordinates needed by the gamemode to function.  To learn more about the available gamemodes in the plugin, how to configure a map.json, and what features are currently offered through this file, we recommend checking out our Documentation repository located [here](https://github.com/Warzone/Docs). If you need any additional examples on how to format the JSON's, consider checking out our Maps repository as well located [here](https://github.com/Warzone/Maps).
+This plugin takes advantage of a ``map.json`` required by every map to configure the gamemode and to document the coordinates needed by the gamemode to function.  To learn more about the available gamemodes in the plugin, how to configure a map.json, and what features are currently offered through this file, we recommend checking out our Documentation repository located [here](https://github.com/Warzone/Docs). If you need any additional examples on how to format the JSON's, consider checking out our Maps repository as well located [here](https://github.com/pvparcade/Maps).

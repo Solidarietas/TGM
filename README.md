@@ -60,12 +60,29 @@ Here's a basic example of what map configuration files look like:
 5. (Optional) Install WorldEdit for added telelport tool functionallity
 
 ## Compiling
-
-1. Clone the repo to your computer.
-
-2. Compile Spigot by downloading and running the BuildTools jar from [here](https://hub.spigotmc.org/jenkins/job/BuildTools). Make sure you include the `--remapped` flag when compiling it, otherwise you might receive errors when later compiling the plugin.
-
-3. Make sure you have Maven installed and run `mvn clean install` in the top-level folder to generate the required libraries. You can then download the jar from the `target` folder.
+### Graphical Setup
+0. You will need to have `git` installed. The command line tool is recommended but GitHub Desktop should work and can be used.
+1. Clone the repository
+   1. Using Github Desktop // TODO document
+   2. Using Inteillj IDEA, navigate to  `File -> New -> Project from Version Control...`
+      1. Paste the URL of this repo in to the URL field and click next through the menu
+1. Wait for the project to import and click on the Gradle symbol (looks like an elephant) on the right hand side of the screen. A side-menu should pop-up on the right.\
+  Click on the drop-down menu for `warzone -> Tasks -> shadow -> shadowJar`. Double click on shadowJar to compile this plugin. 
+   1. You may have to click on the refresh button (two arrows in a circle in the top left of the new window) to see shadowJar
+2. The compiled `.jar` Minecraft Spigot plugin will be located in the `TGM/build/libs/` folder.
+### Command Line:
+0. You will need to have `git` installed. Optionally install
+1. Open a terminal and download/clone the repo to your computer by running the command `git clone https://github.com/Solidarietas/TGM`
+2. Create a file called `gradle.properties` in the folder you just created, containing the following:
+   ```
+   gpr.user=YOUR_GITHUB_USERNAME
+   gpr.key=YOUR_GITHUB_PERSONAL_ACCESS_TOKEN_FOR_DOWNLOADING_PACKAGES
+   ```
+   This will be needed to download BGM, one of the required dependencies for this project.
+3. Inside the TGM folder you just created, run the following command: \
+   Windows: `gradlew.bat shadowJar`\
+   MacOS/Linux: `./gradlew shadowJar`
+4. The compiled `.jar` Minecraft Spigot plugin will be located in the `TGM/build/libs/` folder.
 
 ## Developer Tips
 

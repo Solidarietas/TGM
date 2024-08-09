@@ -1,10 +1,10 @@
 api:
-  # Toggle data linking to an API instance. https://github.com/Warzone/API
+  # Toggle data linking to an API instance. https://github.com/Solidarietas/TGM-API
   # Default: false
   enabled: false
   # URL that points to the API instance.
   # Must not end in / .
-  url: https://api.warzone.network
+  url: https://your.api.url
   # Authentication token to enable data linking between API instance and server
   auth: secret
   stats:
@@ -73,7 +73,7 @@ map:
     official:
       branch: master
       destination: Maps
-      uri: https://github.com/Warzone/Maps.git
+      uri: https://github.com/Solidarietas/TGM-Maps
   # Map repository location.
   sources:
   - Maps
@@ -93,27 +93,27 @@ map:
     ignore-untracked: true
 server:
   # Display name for the server object served by the API.
-  # Default: Warzone
-  name: "Warzone"
+  # Default: "PVP Arcade"
+  name: "PVP Arcade"
   # ID for the server object served by the API.
-  # Default: Warzone
-  id: "warzone"
+  # Default: "pvparcade"
+  id: "pvparcade"
   # Message displayed on the last line of the scoreboards. Color codes accepted.
   ip: "your.server.ip"
   # Store link displayed when a player tries to join a specific team.
-  store: "https://warz.one/store"
+  store: "[No Store Yet]"
   # Appeal link displayed when a player is banned from the Server.
-  appeal: "https://warz.one/discord"
+  appeal: "https://discord.gg/pRUb8taykv"
   # Text displayed after the match time on the tablist header.
-  # Default: &f&lWARZONE
-  tablist-name: "&f&lWARZONE"
-# Legacy Features
+  # Default: &f&PVP Arcade
+  tablist-name: "&f&PVP Arcade"
+# Legacy Features. Only enable if you want combat to be 1.8-like
 legacy:
-  attack-speed: true
-  damage: true
-  knockback: true
-  armor: true
-  shield: true
+  attack-speed: false
+  damage: false
+  knockback: false
+  armor: false
+  shield: false
   shield-reduction:
     generic: 0.5
     projectile: 0.5

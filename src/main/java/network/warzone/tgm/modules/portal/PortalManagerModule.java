@@ -52,7 +52,7 @@ public class PortalManagerModule extends MatchModule {
                 active = json.get("active").getAsBoolean();
             }
 
-            Portal.Type type = Portal.Type.ABSOLUTE;
+            Portal.Type type = Portal.Type.RELATIVE_ANGLE_AND_VELOCITY;
             if (json.has("type")) {
                 type = Portal.Type.valueOf(Strings.getTechnicalName(json.get("type").getAsString()));
             }

@@ -35,25 +35,46 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew shadowJar
+      
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
-    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
-    #
-    # - name: Setup Gradle
-    #   uses: gradle/actions/setup-gradle@dbbdc275be76ac10734476cc723d82dfe7ec6eda # v3.4.2
-    #   with:
-    #     gradle-version: '8.5'
-    #
-    # - name: Build with Gradle 8.5
-    #   run: gradle build
-    - name: Rename JAR file
-      run: mv build/libs/*-all.jar build/libs/TGM-"${{ github.sha }}"-dev.jar
+    - name: Delete previous dev release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        previous_release_id=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/repos/${{ github.repository }}/releases/tags/dev" | jq -r .id)
+        if [ "$previous_release_id" != "null" ]; then
+          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/$previous_release_id"
+          git push --delete origin dev || true
+        fi
 
-    - name: TGM-"${{ github.sha }}"-dev.jar
-      uses: actions/upload-artifact@v4
+    - name: Create new dev release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: TGM-plugin-jar
-        path: build/libs/*.jar
+        tag_name: dev
+        release_name: Dev Build ${{ steps.date.outputs.date }}
+        body: |
+          This is an automated dev build of the master branch.
+          Build date: ${{ steps.date.outputs.date }}
+        draft: false
+        prerelease: true
+
+    - name: Upload artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./build/libs/TGM-*-all.jar  # Adjust this path
+        asset_name: TGM-${{ steps.date.outputs.date }}-dev.jar  # Adjust this name
+        asset_content_type: application/java-archive
 
   dependency-submission:
 

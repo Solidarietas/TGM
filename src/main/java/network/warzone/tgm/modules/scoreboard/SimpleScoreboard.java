@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.mojang.authlib.GameProfile;
+import io.papermc.paper.scoreboard.numbers.NumberFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -185,6 +186,7 @@ public class SimpleScoreboard {
             obj = scoreboard.registerNewObjective((title.length() > 16 ? title.substring(0, 15) : title), "dummy");
             obj.setDisplayName(title);
             obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+            obj.numberFormat(NumberFormat.blank());
         }
 
         removed.stream().forEach((remove) -> {

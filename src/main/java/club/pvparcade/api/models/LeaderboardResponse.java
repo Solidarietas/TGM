@@ -1,0 +1,10 @@
+package club.pvparcade.api.models;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Daniel on 9/12/2018
+ */
+public class LeaderboardResponse extends ArrayList<UserProfile> {
+
+}

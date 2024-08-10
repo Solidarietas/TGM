@@ -6,7 +6,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.0"
 }
 
-group = "network.warzone"
+group = "club.pvparcade"
 version = "2.0-SNAPSHOT"
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION

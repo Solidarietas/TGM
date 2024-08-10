@@ -75,7 +75,7 @@ Here's a basic example of what map configuration files look like:
    1. Click on this link [here](https://github.com/settings/tokens/new) while signed in to your GitHub account and click on the button that says "read:packages" and then click "Generate token". It should begin with `ghp_`.
    2. If you do not have a GitGub account you can use the default token and username in `gradle.properties`, but this is strongly discouraged.
 3. Wait for the project to import and click on the Gradle symbol (looks like an elephant) on the right hand side of the screen. A side-menu should pop up on the right.\
-  Click on the drop-down menu for `warzone -> Tasks -> shadow -> shadowJar`. Double-click on shadowJar to compile this plugin. 
+  Click on the drop-down menu for `TGM -> Tasks -> shadow -> shadowJar`. Double-click on shadowJar to compile this plugin.
    1. You may have to click on the refresh button (two arrows in a circle in the top left of the new window) to see shadowJar
 4. The compiled `.jar` Minecraft Spigot plugin will be located in the `TGM/build/libs/` folder.
 ### Command Line:

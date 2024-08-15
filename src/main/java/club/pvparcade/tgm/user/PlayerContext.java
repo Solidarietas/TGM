@@ -97,7 +97,7 @@ public class PlayerContext {
     }
 
     public boolean isNicked() {
-        return TGM.get().getNickManager().isNicked(this);
+        return false;
     }
 
     public String getLevelString() {

@@ -2,6 +2,7 @@ package club.pvparcade.tgm.modules.dtm;
 
 import static org.bukkit.SoundCategory.AMBIENT;
 
+import club.pvparcade.tgm.modules.respawn.RespawnModule;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.lang.ref.WeakReference;
@@ -75,7 +76,8 @@ public class DTMModule extends MatchModule implements Listener {
             List<Material> materials = Parser.getMaterialsFromElement(monumentJson.get("materials"));
             int health = monumentJson.get("health").getAsInt();
 
-            this.monuments.add(new Monument(new WeakReference<>(match), name, teams, region, materials, health, health));
+            this.monuments.add(new Monument(new WeakReference<>(match), name, teams, region, materials, health, health, match.getModule(
+                RespawnModule.class)));
             if (materials == null) {
                 continue;
             }

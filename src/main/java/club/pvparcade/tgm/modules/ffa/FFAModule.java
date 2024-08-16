@@ -167,7 +167,7 @@ public class FFAModule extends MatchModule implements Listener {
                 event.getVictim().sendTitle("", ChatColor.RED + "You have been eliminated.", 10, 20, 10);
             }
         } else {
-            if (event.getKiller() != null) {
+            if (event.getKiller() != null && event.getVictim() != event.getKiller()) {
                 addPoint(event.getKiller());
                 if (hasWinner()) {
                     MatchTeam winner = getWinner();

@@ -1,5 +1,8 @@
 package club.pvparcade.tgm.modules.monument;
 
+import club.pvparcade.tgm.modules.SpawnPointHandlerModule;
+import club.pvparcade.tgm.modules.respawn.RespawnModule;
+import club.pvparcade.tgm.modules.team.TeamManagerModule;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,15 @@ public class Monument implements Listener {
 
     private final List<MonumentService> services = new ArrayList<>();
 
+    private RespawnModule respawnModule;
+    private SpawnPointHandlerModule spawnPointHandlerModule;
+    private TeamManagerModule teamManagerModule;
+
+    // Used in hacky fix to prevent monument breaking after death bug. Check to see if player within
+    // spawnCheckRadius of their team's spawn when a BlockBreakEvent for a monument is fired.
+    // Defaults to 3 blocks
+    private int spawnCheckRadius;
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (region.contains(event.getBlock().getLocation())) {
@@ -57,7 +69,19 @@ public class Monument implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreakHighest(BlockBreakEvent event) {
+        // Prevents players in "spectator" state after death from mining monuments
+        // By checking if they are dead
+        if (respawnModule.isDead(event.getPlayer())) {
+            event.setCancelled(true);
+            return;
+        }
+
         if (region.contains(event.getBlock().getLocation())) {
+            // Or have just respawned (distance from respawn point < x) and breaking block in monument region, which should be impossible
+            if (event.getPlayer().getLocation().distance(spawnPointHandlerModule.getTeamSpawn(teamManagerModule.getTeam(event.getPlayer())).getLocation()) < spawnCheckRadius) {
+                event.setCancelled(true);
+                return;
+            }
             if (materials == null || materials.contains(event.getBlock().getType())) {
                 if (canDamage(event.getPlayer())) {
                     Match match = this.match.get();

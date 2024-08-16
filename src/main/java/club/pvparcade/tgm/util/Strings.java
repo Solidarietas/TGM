@@ -33,6 +33,7 @@ public class Strings {
             case "FAST_DIGGING" -> "HASTE";
             case "HARM" -> "INSTANT_DAMAGE";
             case "HEAL" -> "INSTANT_HEALTH";
+            case "INCREASE_DAMAGE" -> "STRENGTH";
             case "SLOW" -> "SLOWNESS";
             case "SLOW_DIGGING" -> "MINING_FATIGUE";
             case "JUMP" -> "JUMP_BOOST";

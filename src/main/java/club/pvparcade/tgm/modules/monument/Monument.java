@@ -1,5 +1,6 @@
 package club.pvparcade.tgm.modules.monument;
 
+import club.pvparcade.tgm.modules.respawn.RespawnModule;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,8 @@ public class Monument implements Listener {
 
     private final List<MonumentService> services = new ArrayList<>();
 
+    private RespawnModule respawnModule;
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (region.contains(event.getBlock().getLocation())) {
@@ -57,6 +60,12 @@ public class Monument implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreakHighest(BlockBreakEvent event) {
+        // Prevents players in (survival mode) "spectator" state after death from mining monuments
+        if (respawnModule.isDead(event.getPlayer())) {
+            event.setCancelled(true);
+            return;
+        }
+
         if (region.contains(event.getBlock().getLocation())) {
             if (materials == null || materials.contains(event.getBlock().getType())) {
                 if (canDamage(event.getPlayer())) {

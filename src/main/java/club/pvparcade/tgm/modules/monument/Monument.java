@@ -1,5 +1,6 @@
 package club.pvparcade.tgm.modules.monument;
 
+import club.pvparcade.tgm.modules.respawn.RespawnModule;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import club.pvparcade.tgm.match.Match;
 import club.pvparcade.tgm.match.MatchStatus;
 import club.pvparcade.tgm.modules.region.Region;
 import club.pvparcade.tgm.modules.team.MatchTeam;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,6 +62,13 @@ public class Monument implements Listener {
         if (region.contains(event.getBlock().getLocation())) {
             if (materials == null || materials.contains(event.getBlock().getType())) {
                 if (canDamage(event.getPlayer())) {
+                    RespawnModule respawnModule = TGM.get().getModule(RespawnModule.class);
+                    System.out.println("Player is dead: " + respawnModule.isDead(event.getPlayer()));
+                    if (respawnModule.isDead(event.getPlayer())) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
                     Match match = this.match.get();
                     if (match != null && match.getMatchStatus().equals(MatchStatus.MID)) {
                         event.setCancelled(false); //override filters
@@ -75,6 +84,17 @@ public class Monument implements Listener {
                             }
                         } else {
                             for (MonumentService monumentService : services) {
+                                Player player = event.getPlayer();
+                                Location location = player.getLocation();
+
+                                System.out.println("Player Health: " + event.getPlayer().getHealth());
+                                double x = location.getX();
+                                double y = location.getY();
+                                double z = location.getZ();
+
+                                String formattedLocation = String.format("Player Location (%.2f, %.2f, %.2f)", x, y, z);
+
+                                System.out.println(formattedLocation);
                                 monumentService.damage(event.getPlayer(), event.getBlock());
                             }
                         }

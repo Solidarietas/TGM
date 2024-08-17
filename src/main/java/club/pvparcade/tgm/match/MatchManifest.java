@@ -107,7 +107,7 @@ public abstract class MatchManifest {
         modules.add(new GameRuleModule());
         modules.add(new ItemRemoveModule());
         modules.add(new ItemKeepModule());
-        modules.add(new RegenModule());
+//        modules.add(new RegenModule());
         modules.add(new KillstreakModule());
         modules.add(new ReportsModule());
         modules.add(new StatsModule());

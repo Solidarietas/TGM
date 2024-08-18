@@ -36,7 +36,7 @@ jobs:
       run: ./gradlew shadowJar
       env:
         GITHUB_USERNAME: ${{ vars.GH_PACKAGES_USERNAME }}
-        GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Get current date
       id: date

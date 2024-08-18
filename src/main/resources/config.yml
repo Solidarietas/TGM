@@ -117,6 +117,7 @@ legacy:
   shield-reduction:
     generic: 0.5
     projectile: 0.5
+  regen: false
   # Configurable knockback values
   custom-knockback:
     friction: 2.1

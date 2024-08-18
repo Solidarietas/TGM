@@ -1,9 +1,13 @@
 package club.pvparcade.tgm.modules;
 
 import club.pvparcade.tgm.TGM;
+import club.pvparcade.tgm.config.TGMConfigReloadEvent;
+import club.pvparcade.tgm.match.Match;
 import club.pvparcade.tgm.match.MatchModule;
+import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,8 +33,38 @@ public class RegenModule extends MatchModule implements Listener {
     private int amount = 1; // How many half-hearts the player should heal by, every seconds specified above
     private int exhaustion = 1; // How much exhaustion healing should give to the player
 
+    private static boolean globalEnabled;
+
+    private boolean mapOverride;
+
+    static {
+        loadConfig();
+    }
+
+    public static void loadConfig() {
+        ConfigurationSection legacyConfig = TGM.get().getConfig().getConfigurationSection("legacy");
+        globalEnabled = legacyConfig != null && legacyConfig.getBoolean("regen");
+    }
+
+    @EventHandler
+    public void onConfigReload(TGMConfigReloadEvent event) {
+        loadConfig();
+    }
+
+    @Override
+    public void load(Match match) {
+        mapOverride = globalEnabled;
+
+        JsonObject matchConfig = match.getMapContainer().getMapInfo().getJsonObject();
+        if (!matchConfig.has("legacy")) return;
+
+        JsonObject matchLegacyConfig = matchConfig.get("legacy").getAsJsonObject();
+        if (matchLegacyConfig.has("regen")) mapOverride = matchLegacyConfig.get("regen").getAsBoolean();
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRegen(EntityRegainHealthEvent event) {
+        if (!isEnabled()) return;
         if (event.getEntityType() != EntityType.PLAYER || event.getRegainReason() != EntityRegainHealthEvent.RegainReason.SATIATED) return;
         Player player = (Player) event.getEntity();
 
@@ -59,6 +93,10 @@ public class RegenModule extends MatchModule implements Listener {
     @Override
     public void unload() {
         healTimes.clear();
+    }
+
+    private boolean isEnabled() {
+        return mapOverride;
     }
 
     private long getLastHealTime(Player player) {

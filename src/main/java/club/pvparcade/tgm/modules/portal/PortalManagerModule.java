@@ -52,10 +52,6 @@ public class PortalManagerModule extends MatchModule {
                 active = json.get("active").getAsBoolean();
             }
 
-            Portal.Type type = Portal.Type.RELATIVE_ANGLE_AND_VELOCITY;
-            if (json.has("type")) {
-                type = Portal.Type.valueOf(Strings.getTechnicalName(json.get("type").getAsString()));
-            }
             Region from = TGM.get().getModule(RegionManagerModule.class).getRegion(match, json.get("from"));
             Location to = Parser.convertLocation(match.getWorld(), json.get("to"));
 
@@ -71,7 +67,56 @@ public class PortalManagerModule extends MatchModule {
                 sound = json.get("sound").getAsBoolean();
             }
 
-            Portal portal = new Portal(active, type, from, to, teams, sound);
+            PortalFlags flags = new PortalFlags();
+            if (json.has("flags")) {
+                JsonObject flagsObject = json.getAsJsonObject("flags");
+
+                for (String key : flagsObject.keySet()) {
+                    boolean value = flagsObject.get(key).getAsBoolean();
+
+                    switch (key) {
+                        case "relative-x-position":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_X_POSITION, value);
+                            break;
+                        case "relative-y-position":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_Y_POSITION, value);
+                            break;
+                        case "relative-z-position":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_Z_POSITION, value);
+                            break;
+                        case "relative-x-velocity":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_X_VELOCITY, value);
+                            break;
+                        case "relative-y-velocity":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_Y_VELOCITY, value);
+                            break;
+                        case "relative-z-velocity":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_Z_VELOCITY, value);
+                            break;
+                        case "relative-yaw":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_YAW, value);
+                            break;
+                        case "relative-pitch":
+                            flags.setFlag(PortalFlags.Flag.RELATIVE_PITCH, value);
+                            break;
+                        case "retain-passengers":
+                            flags.setFlag(PortalFlags.Flag.RETAIN_PASSENGERS, value);
+                            break;
+                        case "retain-vehicle":
+                            flags.setFlag(PortalFlags.Flag.RETAIN_VEHICLE, value);
+                            break;
+                        case "retain-open-inventory":
+                            flags.setFlag(PortalFlags.Flag.RETAIN_OPEN_INVENTORY, value);
+                            break;
+                        default:
+                            System.out.println("Unknown flag: " + key);
+                            break;
+                    }
+                }
+            }
+
+            Portal portal = new Portal(active, from, to, teams, sound, flags);
+
             TGM.registerEvents(portal);
             allPortals.add(portal);
             if (json.has("id")) {

@@ -49,7 +49,12 @@ chat:
     200: "#C966FF"
     220: "#9E66FF"
     240: "DARK_GREEN"
+
 map:
+  # Player's below this height will be killed by the void
+  # This setting will currently have no effect below y=-128
+  # This can be overwritten with the voidKillHeight: map option on a per-map basis
+  void-kill-height: -128
   # If players will be placed in to survival after the game is ended
   # Any player in survival mode may break blocks during post game
   post-block-break: false
@@ -91,6 +96,7 @@ map:
     # Skip conditions if API is not enabled or on maps where stat tracking has been disabled.
     # Default: true
     ignore-untracked: true
+
 server:
   # Display name for the server object served by the API.
   # Default: "PVP Arcade"

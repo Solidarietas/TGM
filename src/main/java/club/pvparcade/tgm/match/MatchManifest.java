@@ -1,5 +1,6 @@
 package club.pvparcade.tgm.match;
 
+import club.pvparcade.tgm.modules.VoidKillHeightModule;
 import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +120,7 @@ public abstract class MatchManifest {
         modules.add(new DamageControlModule());
         modules.add(new RespawnModule());
         modules.add(new CraftingModule());
+        modules.add(new VoidKillHeightModule());
 
         if (GameClassModule.isUsingClasses(mapJson)) modules.add(new GameClassModule());
         if (GeneratorModule.hasGenerators(mapJson)) modules.add(new GeneratorModule());

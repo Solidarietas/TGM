@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "club.pvparcade"
-version = "2.0-SNAPSHOT"
+version = "2.0.0"
 
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 
@@ -120,7 +120,7 @@ tasks.named<ProcessResources>("processResources") {
     val props = mapOf("version" to version)
     inputs.properties(props)
     filteringCharset = "UTF-8"
-    filesMatching("paper-plugin.yml") {
+    filesMatching("plugin.yml") {
         expand(props)
     }
 }

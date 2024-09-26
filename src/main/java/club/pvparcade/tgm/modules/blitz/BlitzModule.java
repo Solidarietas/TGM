@@ -54,7 +54,7 @@ public class BlitzModule extends MatchModule implements Listener {
 
     private WeakReference<Match> match;
 
-    private final RespawnRule respawnRule = new RespawnRule(null, 3000, false, false, false);
+    private final RespawnRule respawnRule = new RespawnRule(null, 3000, false, false, 3000, false);
 
     private boolean compact = false;
 

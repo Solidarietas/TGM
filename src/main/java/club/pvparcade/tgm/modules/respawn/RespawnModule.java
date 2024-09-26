@@ -42,7 +42,7 @@ import static club.pvparcade.tgm.util.ColorConverter.format;
 public class RespawnModule extends MatchModule implements Listener {
 
     @Getter @Setter
-    private RespawnRule defaultRule = new RespawnRule(null, 3000, false, true, true);
+    private RespawnRule defaultRule = new RespawnRule(null, 3000, false, true, 3000, true);
 
     private List<RespawnRule> respawnRules;
     private Map<Player, RespawnGoal> respawning;
@@ -75,13 +75,24 @@ public class RespawnModule extends MatchModule implements Listener {
                     int delay = getDefaultRule().getDelay();
                     boolean freeze = getDefaultRule().isFreeze();
                     boolean blindness = getDefaultRule().isBlindness();
+                    int blindnessDelay = getDefaultRule().getBlindnessDelay();
                     boolean confirm = getDefaultRule().isConfirm();
+
+                    boolean hasDelay = rule.has("delay");
+                    boolean hasBlindnessDelay = rule.has("blindnessDelay");
+                    if (hasDelay) delay = rule.get("delay").getAsInt();
+                    if (hasBlindnessDelay) {
+                        blindnessDelay = rule.get("blindnessDelay").getAsInt();
+                    // Default blindnessDelay to the respawn delay if not configured
+                    } else if (hasDelay) {
+                        blindnessDelay = delay;
+                    }
+
                     if (rule.has("teams")) matchTeams = teamManagerModule.getTeams(rule.get("teams").getAsJsonArray());
-                    if (rule.has("delay")) delay = rule.get("delay").getAsInt();
                     if (rule.has("freeze")) freeze = rule.get("freeze").getAsBoolean();
                     if (rule.has("blindness")) blindness = rule.get("blindness").getAsBoolean();
                     if (rule.has("confirm")) confirm = rule.get("confirm").getAsBoolean();
-                    this.respawnRules.add(new RespawnRule(matchTeams, delay, freeze, blindness, confirm));
+                    this.respawnRules.add(new RespawnRule(matchTeams, delay, freeze, blindness, blindnessDelay, confirm));
                 }
             }
         }
@@ -164,7 +175,15 @@ public class RespawnModule extends MatchModule implements Listener {
         boolean hasDelay = rule.getDelay() > 0;
         if (rule.isConfirm() || hasDelay || !shouldRespawn(player)) { // Don't apply effects if not needed
             if (rule.isBlindness()) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));
+                if (rule.getBlindnessDelay() > 0) {
+                    Bukkit.getScheduler().runTaskLater(TGM.get(), () -> player.addPotionEffect(
+                        new PotionEffect(PotionEffectType.BLINDNESS,
+                            1000000, 3, true)),
+                        rule.getBlindnessDelay() / 50); // Convert milliseconds to ticks (1 tick = 50ms)
+                } else {
+                    player.addPotionEffect(
+                        new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));
+                }
             }
             player.setAllowFlight(true);
             player.setFlying(true);

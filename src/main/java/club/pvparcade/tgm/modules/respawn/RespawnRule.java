@@ -13,6 +13,6 @@ public class RespawnRule {
        private int delay;
        private boolean freeze;
        private boolean blindness;
+       private int blindnessDelay;
        private boolean confirm;
-
 }

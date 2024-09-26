@@ -69,7 +69,7 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
     private MatchTeam humans;
     private MatchTeam infected;
 
-    private final RespawnRule defaultRespawnRule = new RespawnRule(null, 3000, true, true, false);
+    private final RespawnRule defaultRespawnRule = new RespawnRule(null, 3000, true, true, 3000, false);
 
     private BukkitTask task;
 

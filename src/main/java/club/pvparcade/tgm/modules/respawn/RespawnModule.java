@@ -179,7 +179,10 @@ public class RespawnModule extends MatchModule implements Listener {
                     Bukkit.getScheduler().runTaskLater(TGM.get(), () -> player.addPotionEffect(
                         new PotionEffect(PotionEffectType.BLINDNESS,
                             1000000, 3, true)),
-                        rule.getBlindnessDelay() / 50); // Convert milliseconds to ticks (1 tick = 50ms)
+                        // We apply blindness one tick early to prevent edge case
+                        // where player is respawned and blindness is cleared before the scheduler applies blindness
+                        // Convert milliseconds to ticks (1 tick = 50ms)
+                        (rule.getBlindnessDelay() / 50) - 1);
                 } else {
                     player.addPotionEffect(
                         new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));

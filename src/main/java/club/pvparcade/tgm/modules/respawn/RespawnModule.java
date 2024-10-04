@@ -176,16 +176,17 @@ public class RespawnModule extends MatchModule implements Listener {
         if (rule.isConfirm() || hasDelay || !shouldRespawn(player)) { // Don't apply effects if not needed
             if (rule.isBlindness()) {
                 if (rule.getBlindnessDelay() > 0) {
-                    Bukkit.getScheduler().runTaskLater(TGM.get(), () -> player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.BLINDNESS,
-                            1000000, 3, true)),
+                    Bukkit.getScheduler().runTaskLater(TGM.get(), () -> {
+                          if (isDead(player))
+                            player.addPotionEffect(
+                                new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));
+                        },
                         // We apply blindness one tick early to prevent edge case
                         // where player is respawned and blindness is cleared before the scheduler applies blindness
                         // Convert milliseconds to ticks (1 tick = 50ms)
                         (rule.getBlindnessDelay() / 50) - 1);
                 } else {
-                    player.addPotionEffect(
-                        new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 1000000, 3, true));
                 }
             }
             player.setAllowFlight(true);
